@@ -1,11 +1,4 @@
-# bounded-buffer
-
-## Description
-The `Record Semaphore` solution for the classic `Producer-Consumer` problem.
-
-## Example
-```ts
-import { BoundedBuffer, IProducer } from "../src/bounded-buffer";
+import { BoundedBuffer, IProducer } from "../src/";
 
 class MyProducer implements IProducer<number> {
     async produce(size = 1) {
@@ -29,6 +22,7 @@ const boundedBuffer = new BoundedBuffer<number>({
     auto: true
 });
 
+
 const consume = async() => {
     while (true) {
         const res = await boundedBuffer.get();
@@ -43,12 +37,8 @@ const produce = async() => {
 }
 
 try {
-    consume().catch(e => console.log(e));
-    produce().catch(e => console.log(e));
+    consume();
+    produce();
 } catch(e) {
     console.error(e);
 }
-```
-
-## LICENSE
-MIT
