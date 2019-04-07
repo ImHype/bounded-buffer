@@ -28,7 +28,7 @@ const addTasks = async() => {
             name: 'hello',
             desc: 'world',
             callback(succ) {
-                console.log('succ', succ);
+                console.log('succ:', succ);
             }
         });
         await sleep(5);

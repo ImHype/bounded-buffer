@@ -25,7 +25,7 @@ const boundedBuffer = new ProduceInBackground<number>({
 const consume = async() => {
     while (true) {
         const res = await boundedBuffer.getItem();
-        console.log('getItem', res);
+        console.log('item:', res);
         await sleep(100);
     }
 }

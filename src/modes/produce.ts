@@ -13,7 +13,6 @@ export class ProduceInBackground<T> extends BoundedBuffer<T> {
 
     protected buffer: Array<IResult<T>> = [];
 
-
     constructor(options: ProduceModeOptions<T>) {
         super(options);
 
@@ -61,11 +60,11 @@ export class ProduceInBackground<T> extends BoundedBuffer<T> {
         this.empty.signal(1);
 
         if (result) {
-            if (result.error) {
-                throw result.error;
-            } else {
-                return result.data;
-            }
+            return result;
+        }
+
+        return {
+            error: new Error('Unknow error!')
         }
     }
 }
