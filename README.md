@@ -5,73 +5,92 @@ The `Record Semaphore` way's solution for the classic `Producer-Consumer` proble
 
 ## Example
 
-### source
+### Make Resource
 ```ts
-import { BoundedBuffer, IProducer } from "../src/";
+import { IProducer, ProduceInBackground } from "../src";
 
 const sleep = (n: number) => new Promise((resolve) => setTimeout(resolve, n));
+
 const producer = new class implements IProducer<number> {
-    async produce(size = 1) {
+    async produce( size = 1 ) {
         let res = [];
+
         for (var i = 0 ; i < size; i++) {
-            res.push({ data: i });
+            res.push({
+                data: i
+            });
         }
+
         return res;
     }
 }();
 
-const boundedBuffer = new BoundedBuffer<number>({
+const boundedBuffer = new ProduceInBackground<number>({
     producer,
-    size: 10,
+    bufferSize: 10,
+    sizePerRound: 9
 });
-
 
 const consume = async() => {
     while (true) {
-        const res = await boundedBuffer.get();
-        console.log('consumed', boundedBuffer['buffer'].length);
+        const res = await boundedBuffer.getItem();
+        console.log('getItem', res);
         await sleep(100);
     }
 }
 
-const produce = async() => {
-    while (true) {
-        await boundedBuffer.produce(9);
-        console.log('produced', boundedBuffer['buffer'].length);
-    }
-}
 
 try {
-    produce();
     consume();
 } catch(e) {
     console.error(e);
 }
 ```
 
-### output
-```bash
-produced 9
-consumed 8
-consumed 7
-consumed 6
-consumed 5
-consumed 4
-consumed 3
-consumed 2
-consumed 1
-produced 10
-consumed 9
-consumed 8
-consumed 7
-consumed 6
-consumed 5
-consumed 4
-consumed 3
-consumed 2
-consumed 1
-produced 10
-...
+### Run Tasks
+```ts
+import { ConsumeInBackground, IConsumer } from "../src";
+
+const sleep = (n: number) => new Promise((resolve) => setTimeout(resolve, n));
+
+interface Task {
+    name: string;
+    desc: string;
+    succ?: boolean;
+    callback: {(succ: boolean): void}
+}
+const consumer = new class implements IConsumer<Task> {
+    async consume(tasks: Task[]) {
+        tasks.forEach((task) => {
+            setTimeout(() => task.callback(true), 1000);
+        });
+    }
+}();
+
+const boundedBuffer = new ConsumeInBackground<Task>({
+    consumer,
+    bufferSize: 10,
+    sizePerRound: 10
+});
+
+const addTasks = async() => {
+    while (true) {
+        await boundedBuffer.putItem({
+            name: 'hello',
+            desc: 'world',
+            callback(succ) {
+                console.log('succ', succ);
+            }
+        });
+        await sleep(5);
+    }
+}
+
+try {
+    addTasks();
+} catch(e) {
+    console.error(e);
+}
 ```
 
 ## LICENSE
