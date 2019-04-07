@@ -37,21 +37,28 @@ export class BoundedBuffer<T> {
     };
 
     async produce(n = 1) {
-        n = Math.min(this.empty.value, n);
+        n = Math.max(1, Math.min(this.size, n));
 
         await this.empty.wait(n);
 
-        let results = await this.producer.produce(n);
+        let resourses = await this.producer.produce(n);
 
-        if (!Array.isArray(results)) {
-            results = [results];
+        if (!Array.isArray(resourses)) {
+            resourses = [resourses];
+        }
+
+        const results = [];
+
+        for (let i = 0; i < n; i++) {
+            results[i] = resourses[i];
         }
 
         this.buffer = [
-            ...this.buffer, ...results
+            ...this.buffer,
+            ...results
         ];
 
-        this.full.signal(results.length);
+        this.full.signal(n);
     }
 
     async get() {

@@ -4,10 +4,22 @@ import { Callback } from "./interface";
 
 export class Semaphore {
     public value: number;
+    private timer: NodeJS.Timeout | void;
     private list: Array<Callback> = [];
 
     constructor(value: number) {
         this.value = value;
+        this.timer = void 0;
+        this.openTimer();
+    }
+
+    private openTimer() {
+        this.timer = setTimeout(() => this.openTimer(), 1000);
+    }
+
+    public destroy() {
+        if (this.timer)
+            clearTimeout(this.timer);
     }
 
     public block = util.promisify(this._block.bind(this));
