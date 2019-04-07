@@ -7,7 +7,6 @@ export interface IProducer<T> {
 interface Options<T> {
     size: number;
     producer: IProducer<T>;
-    auto?: boolean;
 }
 
 interface Result<T> {

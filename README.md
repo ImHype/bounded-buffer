@@ -26,7 +26,6 @@ const producer = new MyProducer();
 const boundedBuffer = new BoundedBuffer<number>({
     producer,
     size: 50,
-    auto: true
 });
 
 const consume = async() => {
