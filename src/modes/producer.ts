@@ -49,11 +49,15 @@ export class RunProducer<T> extends BoundedBuffer<T> {
         }
 
         const results: Array<IResult<T>> = newArray(n, i => {
-            const e: Error = error || new Error('Unknown Error');
-
             if (i in resourses) {
                 return resourses[i];
             }
+
+            const e: Error =
+                error ||
+                new Error(
+                    'An exception occurred during `Producer.produce`: There is nothing could be resolved'
+                );
 
             return {
                 error: e

@@ -31,7 +31,9 @@ export class BoundedBuffer<T> {
         this.empty.signal(1);
 
         if (result === void 0) {
-            throw new Error('Unknown Error');
+            throw new Error(
+                'An exception occurred during `BoundedBuffer.getItem`: The buffer has been empty.'
+            );
         }
 
         if ('error' in result) {
