@@ -1,11 +1,13 @@
 import * as util from 'util';
 
-import { Callback } from "./interface";
+import { Callback } from './interface';
 
 export class Semaphore {
+    public block = util.promisify(this._block.bind(this));
+
     public value: number;
     private timer: NodeJS.Timeout | void;
-    private list: Array<Callback> = [];
+    private list: Callback[] = [];
 
     constructor(value: number) {
         this.value = value;
@@ -13,20 +15,24 @@ export class Semaphore {
         this.openTimer();
     }
 
-    private openTimer() {
-        this.timer = setTimeout(() => this.openTimer(), 1000);
-    }
-
     public destroy() {
-        if (this.timer)
+        if (this.timer) {
             clearTimeout(this.timer);
+        }
     }
 
-    public block = util.promisify(this._block.bind(this));
+    public wakeup() {
+        const callback = this.list.shift();
+
+        if (callback) {
+            callback(null, void 0);
+        }
+    }
 
     public async wait(n = 1) {
         let i = 0;
-        let promises = [];
+
+        const promises: Array<Promise<void>> = [];
 
         while (i < n) {
             this.value = this.value - 1;
@@ -50,15 +56,11 @@ export class Semaphore {
         }
     }
 
-    private _block(callback: Callback) {
-        this.list.push(callback);
+    private openTimer() {
+        this.timer = setTimeout(() => this.openTimer(), 1000);
     }
 
-    public wakeup() {
-        const callback = this.list.shift();
-
-        if (callback) {
-            callback(null);
-        }
+    private _block(callback: Callback) {
+        this.list.push(callback);
     }
 }
