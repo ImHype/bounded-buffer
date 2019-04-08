@@ -1,6 +1,7 @@
 # bounded-buffer
 
-![](https://travis-ci.com/ImHype/bounded-buffer.svg?branch=master)
+[![travis-ci](https://travis-ci.com/ImHype/bounded-buffer.svg)](https://travis-ci.com/ImHype/bounded-buffer)
+[![codecov](https://codecov.io/gh/ImHype/bounded-buffer/branch/master/graph/badge.svg)](https://codecov.io/gh/ImHype/bounded-buffer)
 
 
 ## 描述
