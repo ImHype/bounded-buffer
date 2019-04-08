@@ -1,5 +1,8 @@
 # bounded-buffer
 
+![](https://travis-ci.com/ImHype/bounded-buffer.svg?branch=master)
+
+
 ## 描述
 使用 `Record Semaphore` 的方案，解决经典 `Producer-Consumer` 问题。
 
