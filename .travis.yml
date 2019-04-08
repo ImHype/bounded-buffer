@@ -13,4 +13,3 @@ install:
 
 script:
 - npm run test
-- CODECOV_TOKEN="9deeda0f-dbfb-4e20-9550-90870bebb895" codecov
