@@ -1,3 +1,3 @@
-export * from './bounded-buffer';
-export * from './interface';
-export * from './modes';
+export * from './core/bounded-buffer';
+export * from './core/interface';
+export * from './automatic';

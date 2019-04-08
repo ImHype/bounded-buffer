@@ -1,18 +1,18 @@
-import { BoundedBuffer } from '../bounded-buffer';
-import { IOptions, IConsumer } from '../interface';
+import { BoundedBuffer } from '../core/bounded-buffer';
+import { IOptions, IConsumer } from '../core/interface';
 
-interface ConsumeModeOptions<T> extends IOptions {
+interface ProducableOptions<T> extends IOptions {
     consumer: IConsumer<T>;
     consumerSize?: number;
     sizePerRound?: number;
 }
 
-export class RunConsumer<T> extends BoundedBuffer<T> {
+export class Producable<T> extends BoundedBuffer<T> {
     protected consumer: IConsumer<T>;
 
     protected sizePerRound: number;
 
-    constructor(options: ConsumeModeOptions<T>) {
+    constructor(options: ProducableOptions<T>) {
         super(options);
 
         this.consumer = options.consumer;

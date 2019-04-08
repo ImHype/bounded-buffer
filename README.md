@@ -1,12 +1,12 @@
 # bounded-buffer
 
 ## 描述
-经典 `Producer-Consumer` 问题，使用 `Record Semaphore` 方式实现的解决方案.
+使用 `Record Semaphore` 的方案，解决经典 `Producer-Consumer` 问题。
 
 ## API
 
 ### BoundedBuffer
-这是最普通的生产消费者模式，`produce` 与 `consume` 的操作全有自己处理，且没有批量接口。
+这是普通的生产消费者模式，`produce` 与 `consume` 的操作全有自己处理，且没有批量接口。
 
 #### 例子
 
@@ -24,7 +24,7 @@ await boundedBuffer.putItem(3);
 const res = await boundedBuffer.getItem();
 ```
 
-### RunProducer
+### ProducerRuner
 传入 `producer`，由 `BoundedBuffer` 后台运行 `producer.produce`。可以批量操作，配置 `options.sizePerRound` 设置每次 `produce` 动作的次数上限。
 
 #### 适用场景
@@ -56,7 +56,7 @@ const res2 = await boundedBuffer.getItem();
 const res3 = await boundedBuffer.getItem();
 ```
 
-### RunConsumer
+### ConsumerRuner
 传入 `consumer`，由 `BoundedBuffer` 后台运行 `consumer.consume`。可以批量操作，配置 `options.sizePerRound` 设置每次 `consume` 动作的次数上限。
 
 #### 适用场景

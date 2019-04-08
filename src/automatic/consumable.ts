@@ -1,19 +1,19 @@
-import { IProducer, IOptions, IResult } from '../interface';
-import { BoundedBuffer } from '../bounded-buffer';
-import { newArray } from '../../utils';
+import { IProducer, IOptions, IResult } from '../core/interface';
+import { BoundedBuffer } from '../core/bounded-buffer';
+import { newArray } from '../core/utils';
 
-interface ProduceModeOptions<T> extends IOptions {
+interface ReaderOptions<T> extends IOptions {
     producer: IProducer<T>;
     producerSize?: number;
     sizePerRound?: number;
 }
 
-export class RunProducer<T> extends BoundedBuffer<T> {
+export class Consumable<T> extends BoundedBuffer<T> {
     protected producer: IProducer<T>;
 
     protected sizePerRound: number;
 
-    constructor(options: ProduceModeOptions<T>) {
+    constructor(options: ReaderOptions<T>) {
         super(options);
 
         this.producer = options.producer;

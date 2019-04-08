@@ -2,5 +2,15 @@
   "name": "bounded-buffer",
   "version": "1.0.0",
   "main": "./dist/index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -rf lib && npx tsc -t ES5 -m commonjs --outDir lib",
+    "test": "./node_modules/.bin/jest --config ./jest.config.json --coverage --env=node"
+  },
+  "devDependencies": {
+    "typescript": "3.1.6",
+    "@types/jest": "23.3.13",
+    "jest": "^23.4.2",
+    "ts-jest": "^23.0.0"
+  }
 }

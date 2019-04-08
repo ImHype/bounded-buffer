@@ -1,0 +1,18 @@
+{
+  "globals": {
+    "ts-jest": {
+      "tsConfig": "./tsconfig.test.json"
+    }
+  },
+  "transform": {
+    "^.+\\.jsx?$": "babel-jest",
+    "^.+\\.tsx?$": "ts-jest"
+  },
+  "testEnvironment": "node",
+  "testRegex": "test\\/.+\\.(test|spec)\\.(ts|js)",
+  "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
+  "coverageReporters": [
+    "json", "json-summary", "lcov", "text", "clover", "text-summary"
+  ],
+  "collectCoverageFrom": ["src/**/*.ts"]
+}
