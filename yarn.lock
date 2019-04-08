@@ -23,6 +23,11 @@
   resolved "http://bnpm.byted.org/@types/jest/download/@types/jest-23.3.13.tgz#c81484b6f4ca007bb09887ed15ecb3286d58f928"
   integrity sha1-yBSEtvTKAHuwmIftFeyzKG1Y+Sg=
 
+"@types/node@^11.13.0":
+  version "11.13.0"
+  resolved "http://bnpm.byted.org/@types/node/download/@types/node-11.13.0.tgz#b0df8d6ef9b5001b2be3a94d909ce3c29a80f9e1"
+  integrity sha1-sN+Nbvm1ABsr46lNkJzjwpqA+eE=
+
 abab@^2.0.0:
   version "2.0.0"
   resolved "http://bnpm.byted.org/abab/download/abab-2.0.0.tgz#aba0ab4c5eee2d4c79d3487d85450fb2376ebb0f"

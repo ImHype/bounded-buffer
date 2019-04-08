@@ -8,9 +8,10 @@
     "test": "./node_modules/.bin/jest --config ./jest.config.json --coverage --env=node"
   },
   "devDependencies": {
-    "typescript": "3.1.6",
     "@types/jest": "23.3.13",
     "jest": "^23.4.2",
-    "ts-jest": "^23.0.0"
+    "ts-jest": "^23.0.0",
+    "typescript": "3.1.6",
+    "@types/node": "^11.13.0"
   }
 }
