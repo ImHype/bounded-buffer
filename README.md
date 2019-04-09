@@ -14,7 +14,7 @@ Installation
 $ npm install stream
 ```
 
-Usage example
+Basic usage
 -------------
 
 ```javascript
@@ -57,12 +57,16 @@ Promise.all(
 })
 ```
 
-Another usages
+
+
+
+Run producer or consumer automatically
 -------------
 
-This is the most common way to use the code shown above. It can also be used in the following scenarios:
-* [There are producers who produce automatically](./examples/consumable)
-* [There are consumers who consume automatically](./examples/producable)
+Sometimes the producers or consumers need be running in background:
+
+* [Run producer automatically](./examples/consumable)
+* [Run consumer automatically](./examples/producable)
 
 License
 -------
