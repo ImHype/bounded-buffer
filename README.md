@@ -63,7 +63,7 @@ Promise.all(
 Run producer or consumer automatically
 -------------
 
-Sometimes the producers or consumers need be running in background:
+Sometimes producers or consumers need to be run automatically:
 
 * [Run producer automatically](./examples/consumable.ts)
 * [Run consumer automatically](./examples/producable.ts)
