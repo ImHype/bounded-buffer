@@ -57,6 +57,9 @@ Promise.all(
 })
 ```
 
+Another usages
+-------------
+
 This is the most common way to use the code shown above. It can also be used in the following scenarios:
 * [There are producers who produce automatically](./examples/consumable)
 * [There are consumers who consume automatically](./examples/producable)
