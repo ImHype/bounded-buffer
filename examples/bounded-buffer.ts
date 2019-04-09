@@ -1,4 +1,4 @@
-import { BoundedBuffer } from "../src";
+import BoundedBuffer from "../src";
 
 const sleep = (n: number) => new Promise((resolve) => setTimeout(resolve, n));
 

@@ -1,3 +1,6 @@
-export * from './core/bounded-buffer';
-export * from './core/interface';
+import { BoundedBuffer } from './core/bounded-buffer';
+
+export default BoundedBuffer;
+
 export * from './automatic';
+export * from './core/interface';

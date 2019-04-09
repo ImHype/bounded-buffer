@@ -1,4 +1,4 @@
-import { Consumable, IProducer, IResult } from '../src';
+import { Producable, IProducer, IResult } from '../src';
 
 class MyProducer implements IProducer<number> {
     public async produce(size: number) {
@@ -12,7 +12,7 @@ class MyProducer implements IProducer<number> {
     }
 }
 
-const consumable = new Consumable<number>({
+const consumable = new Producable<number>({
     producer: new MyProducer(),
     bufferSize: 10,
     sizePerRound: 10

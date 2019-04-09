@@ -1,28 +1,27 @@
-import { IProducer, IOptions, IResult } from '../core/interface';
 import { BoundedBuffer } from '../core/bounded-buffer';
-import { newArray } from '../core/utils';
+import { IOptions, IConsumer } from '../core/interface';
 
-interface ReaderOptions<T> extends IOptions {
-    producer: IProducer<T>;
-    producerSize?: number;
+interface ConsumableOptions<T> extends IOptions {
+    consumer: IConsumer<T>;
+    consumerSize?: number;
     sizePerRound?: number;
 }
 
 export class Consumable<T> extends BoundedBuffer<T> {
-    protected producer: IProducer<T>;
+    protected consumer: IConsumer<T>;
 
     protected sizePerRound: number;
 
-    constructor(options: ReaderOptions<T>) {
+    constructor(options: ConsumableOptions<T>) {
         super(options);
 
-        this.producer = options.producer;
+        this.consumer = options.consumer;
 
         this.sizePerRound = options.sizePerRound || options.bufferSize;
 
-        const { producerSize = 1 } = options;
+        const { consumerSize = 1 } = options;
         let i = 0;
-        while (i < Math.min(producerSize, 1)) {
+        while (i < Math.min(consumerSize, 1)) {
             this.runInBackground();
             i++;
         }
@@ -30,42 +29,24 @@ export class Consumable<T> extends BoundedBuffer<T> {
 
     protected async runInBackground() {
         while (true) {
-            await this.produce(this.sizePerRound);
+            await this.consume(this.sizePerRound);
         }
     }
 
-    protected async produce(max = 1) {
-        let resourses: Array<IResult<T>> = [];
-        let error: Error;
+    protected async consume(max: number): Promise<void> {
+        const n = Math.max(1, Math.min(max, this.buffer.length));
 
-        const n = Math.max(1, Math.min(this.bufferSize, max));
+        await this.full.wait(n);
 
-        await this.empty.wait(n);
+        const list = this.buffer.splice(0, n);
 
         try {
-            resourses = await this.producer.produce(n);
+            const items: T[] = list.map(item => item.data as T);
+            await this.consumer.consume(items);
         } catch (e) {
-            error = e;
+            this.logger.error(e);
         }
 
-        const results: Array<IResult<T>> = newArray(n, i => {
-            if (i in resourses) {
-                return resourses[i];
-            }
-
-            const e: Error =
-                error ||
-                new Error(
-                    'An exception occurred during `Producer.produce`: There is nothing could be resolved'
-                );
-
-            return {
-                error: e
-            };
-        });
-
-        this.buffer = [...this.buffer, ...results];
-
-        this.full.signal(n);
+        this.empty.signal(n);
     }
 }

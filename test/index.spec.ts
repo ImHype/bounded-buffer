@@ -1,7 +1,9 @@
-import { BoundedBuffer } from '../src';
+import BoundedBuffer from '../src';
+
 const utils = {
     sleep: (n: number) => new Promise(resolve => setTimeout(resolve, n))
 };
+
 describe('bounded-buffer# normal mode', () => {
     const consume = async (boundedBuffer: BoundedBuffer<number>, size: any) => {
         let i = 0;

@@ -1,4 +1,4 @@
-import { Producable, IConsumer } from "../src";
+import { Consumable, IConsumer } from "../src";
 
 const sleep = (n: number) => new Promise((resolve) => setTimeout(resolve, n));
 
@@ -17,7 +17,7 @@ class MyConsumer implements IConsumer<Task> {
     }
 };
 
-const producable = new Producable<Task>({
+const producable = new Consumable<Task>({
     consumer: new MyConsumer(),
     bufferSize: 10,
     sizePerRound: 10

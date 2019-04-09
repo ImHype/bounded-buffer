@@ -13,5 +13,8 @@
     "ts-jest": "^23.0.0",
     "typescript": "3.1.6",
     "@types/node": "^11.13.0"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
