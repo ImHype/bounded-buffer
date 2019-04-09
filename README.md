@@ -65,8 +65,8 @@ Running in background
 
 Sometimes the producers or consumers need be running in background:
 
-* [Run producer automatically](./examples/consumable)
-* [Run consumer automatically](./examples/producable)
+* [Run producer automatically](./examples/consumable.ts)
+* [Run consumer automatically](./examples/producable.ts)
 
 License
 -------
