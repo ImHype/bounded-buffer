@@ -1,20 +1,22 @@
 {
   "name": "bounded-buffer",
-  "version": "1.0.0",
-  "main": "./dist/index.js",
+  "version": "1.0.1",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf lib && npx tsc -t ES5 -m commonjs --outDir lib",
+    "build": "rm -rf lib && npx tsc -d -t ES5 -m commonjs --outDir lib",
+    "release": "npm run build && npm publish",
     "test": "./node_modules/.bin/jest --config ./jest.config.json --coverage --env=node"
   },
   "devDependencies": {
     "@types/jest": "23.3.13",
+    "@types/node": "^11.13.0",
     "jest": "^23.4.2",
     "ts-jest": "^23.0.0",
-    "typescript": "3.1.6",
-    "@types/node": "^11.13.0"
+    "typescript": "3.1.6"
   },
   "files": [
-    "dist"
+    "lib"
   ]
 }

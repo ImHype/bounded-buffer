@@ -11,7 +11,7 @@ Installation
 ------------
 
 ```
-$ npm install stream
+$ npm install bounded-buffer
 ```
 
 Basic usage
