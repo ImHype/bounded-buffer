@@ -60,7 +60,7 @@ Promise.all(
 
 
 
-Run producer or consumer automatically
+Running in background
 -------------
 
 Sometimes the producers or consumers need be running in background:
