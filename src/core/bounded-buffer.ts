@@ -10,6 +10,8 @@ export class BoundedBuffer<T> {
 
     protected logger: Logger;
 
+    protected alive: boolean = true;
+
     protected buffer: Array<IResult<T>> = [];
 
     constructor(options: IOptions) {
@@ -52,6 +54,7 @@ export class BoundedBuffer<T> {
     }
 
     public destroy() {
+        this.alive = false;
         this.empty.destroy();
         this.full.destroy();
     }

@@ -21,6 +21,7 @@ export class Consumable<T> extends BoundedBuffer<T> {
 
         const { consumerSize = 1 } = options;
         let i = 0;
+
         while (i < Math.min(consumerSize, 1)) {
             this.runInBackground();
             i++;
@@ -28,7 +29,7 @@ export class Consumable<T> extends BoundedBuffer<T> {
     }
 
     protected async runInBackground() {
-        while (true) {
+        while (this.alive) {
             await this.consume(this.sizePerRound);
         }
     }

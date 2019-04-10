@@ -30,7 +30,7 @@ export class Producable<T> extends BoundedBuffer<T> {
     }
 
     protected async runInBackground() {
-        while (true) {
+        while (this.alive) {
             await this.produce(this.sizePerRound);
         }
     }
